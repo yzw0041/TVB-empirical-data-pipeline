@@ -41,13 +41,17 @@ date >> $folderName/time.txt
 #FREESURFER Workaround
 SUBJECTS_DIR=${path}/${pfx}
 
+# FREESURFER RECON-ALL
+recon-all -i ${SUBJECTS_DIR}/RAWDATA/MPRAGE/HIGHRISK3.nii.gz -s recon_all -all
+
+
 #Use aparc.a2009s+aseg volume mask from anatomical preprocessing
-#cd recon_all/
+cd recon_all/
 #Map cortical labels from cortical parcellation (aparc) to the segmentation volume (aseg)
-#mri_aparc2aseg --s recon_all --labelwm --hypo-as-wm --rip-unknown --volmask --o mri/wmparc.a2009s.mgz --ctxseg aparc.a2009s+aseg.mgz
+mri_aparc2aseg --s recon_all --labelwm --hypo-as-wm --rip-unknown --volmask --o mri/wmparc.a2009s.mgz --ctxseg aparc.a2009s+aseg.mgz
 
 #Compute Segementattion Statistics
-#mri_segstats --seg mri/wmparc.a2009s.mgz --sum ../${folderName}/wmparc.a2009s.stats --pv mri/norm.mgz --excludeid 0 --brainmask mri/brainmask.mgz --in mri/norm.mgz --in-intensity-name norm --in-intensity-units MR --etiv --subject recon_all --surf-wm-vol --ctab-default
+ mri_segstats --seg mri/wmparc.a2009s.mgz --sum ../${folderName}/wmparc.a2009s.stats --pv mri/norm.mgz --excludeid 0 --brainmask mri/brainmask.mgz --in mri/norm.mgz --in-intensity-name norm --in-intensity-units MR --etiv --subject recon_all --surf-wm-vol --ctab-default
 
 #cd ..
 #Convert the raw DICOM Files to a single 4D-Nifti File (BOLD)
