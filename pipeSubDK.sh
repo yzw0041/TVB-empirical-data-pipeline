@@ -14,9 +14,9 @@
 # license can be found at http://www.gnu.org/copyleft/gpl.html.
 # =============================================================================
 
-subID=$1
+subID=5202
 #split=$2
-setupPath=$2
+setupPath=/Users/posnerlab/Documents/Tools/MATLAB/TVB
 #emailAdress=$3
 
 #Init all Toolboxes
@@ -25,7 +25,7 @@ source ${setupPath}/pipeSetup.sh
 #create the log-folder
 mkdir $logFolder
 #copy the kill-script into the logfolder
-cp ${rootPath}/killPipe.sh $logfolder
+cp ${rootPath}/killPipe.sh $logfolder/killPipe.sh
 
 #Define the jobFile
 jobFile=${logFolder}/jobFile${subID}.txt
