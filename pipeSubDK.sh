@@ -25,7 +25,7 @@ source ${setupPath}/pipeSetup.sh
 #create the log-folder
 mkdir $logFolder
 #copy the kill-script into the logfolder
-cp ${rootPath}/killPipe.sh $logfolder
+cp ${rootPath}/killPipe.sh $logFolder
 
 #Define the jobFile
 jobFile=${logFolder}/jobFile${subID}.txt
