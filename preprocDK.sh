@@ -201,16 +201,16 @@ mrinfo ${path}/${pfx}/RAWDATA/DTI/ -grad btable.b
 #Diffusion tensor images
 dwi2tensor dwi.mif -grad btable.b dt.mif
 #Fractional anisotropy (FA) map
-tensor2FA dt.mif fa.mif
+tensor2metric dt.mif -fa   fa.mif
 #Remove noisy background by multiplying the FA Image with the binary brainmask
-mrmult fa.mif wmmask.mif fa_corr.mif
+mrcalc fa.mif wmmask.mif -mult fa_corr.mif
 #Eigenvector (EV) map
-tensor2vector dt.mif ev.mif
+tensor2metric dt.mif -vector ev.mif
 #Scale the EV map by the FA Image
-mrmult ev.mif fa_corr.mif ev_scaled.mif
+mrcalc ev.mif fa_corr.mif ev_scaled.mif
 
 #Mask of single-fibre voxels
-erode wmmask.mif -npass 1 - | mrmult fa_corr.mif - - | threshold - -abs 0.7 sf.mif
+maskfilter  wmmask.mif -npass 1 - | mrcalc fa_corr.mif - - | threshold - -abs 0.7 sf.mif
 #Response function coefficient
 estimate_response dwi.mif -grad btable.b -lmax ${lmax} sf.mif response.txt
 #CSD computation
